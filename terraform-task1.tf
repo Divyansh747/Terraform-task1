@@ -42,6 +42,7 @@ resource "aws_instance" "aws-os-1" {
   user_data         = <<-EOF
                        #!/bin/bash
                        sudo yum install httpd -y
+                       sudo yum install git -y
                        sudo systemctl start httpd
                        sudo systemctl enable httpd
                        EOF  
