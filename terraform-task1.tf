@@ -44,7 +44,7 @@ resource "aws_instance" "aws-os-1" {
                        sudo yum install httpd -y
                        sudo systemctl start httpd
                        sudo systemctl enable httpd
-                       EOF  
+                       EOF
   tags = {
     Name = "aws-os-1"
   }
@@ -71,6 +71,7 @@ resource "aws_volume_attachment" "aws-ebs-attach" {
 resource "aws_s3_bucket" "aws-s3-test" {
   bucket = "awstestbucket747"
   acl    = "public-read"
+  force_destroy = true
 }
 
 #aws cloudfront with s3
