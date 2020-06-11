@@ -67,6 +67,12 @@ resource "aws_volume_attachment" "aws-ebs-attach" {
   instance_id = "${aws_instance.aws-os-1.id}"
 }
 
+#aws s3
+resource "aws_s3_bucket" "aws-s3-test" {
+  bucket = "awstestbucket747"
+  acl    = "public-read"
+}
+
 
 
 
