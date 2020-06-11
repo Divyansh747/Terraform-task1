@@ -55,6 +55,7 @@ resource "aws_instance" "aws-os-1" {
 resource "aws_ebs_volume" "ebs-test" {
   availability_zone = "ap-south-1a"
   size              = 2
+  force_destroy     = true
 
   tags = {
     Name = "aws-ebs-1"
