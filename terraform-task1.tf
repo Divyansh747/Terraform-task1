@@ -60,5 +60,13 @@ resource "aws_ebs_volume" "ebs-test" {
   }
 }
 
+#attaching ebs volume
+resource "aws_volume_attachment" "aws-ebs-attach" {
+  device_name = "/dev/sdh"
+  volume_id   = "${aws_ebs_volume.ebs-test.id}"
+  instance_id = "${aws_instance.aws-os-1.id}"
+}
+
+
 
 
