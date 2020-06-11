@@ -81,9 +81,9 @@ resource "null_resource" "nullremote" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo mkfs.ext4 /dev/xvdh"
-      "sudo mount /dev/xvdh /var/www/html"
-      "sudo rm -rf /var/www/html/*"
+      "sudo mkfs.ext4 /dev/xvdh",
+      "sudo mount /dev/xvdh /var/www/html",
+      "sudo rm -rf /var/www/html/*",
     ]
   }
 }
