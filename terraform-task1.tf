@@ -44,7 +44,7 @@ resource "aws_instance" "aws-os-1" {
                        sudo yum install httpd -y
                        sudo systemctl start httpd
                        sudo systemctl enable httpd
-                       EOF
+                       EOF  
   tags = {
     Name = "aws-os-1"
   }
@@ -65,6 +65,27 @@ resource "aws_volume_attachment" "aws-ebs-attach" {
   device_name = "/dev/sdh"
   volume_id   = "${aws_ebs_volume.ebs-test.id}"
   instance_id = "${aws_instance.aws-os-1.id}"
+}
+
+resource "null_resource" "nullremote" {
+  depends_on = [
+    aws_volume_attachment.aws-ebs-attach,  
+  ]
+  
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = file("/root/Downloads/test-os-key.pem")
+    host        = aws_instance.aws-os-1.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo mkfs.ext4 /dev/xvdh"
+      "sudo mount /dev/xvdh /var/www/html"
+      "sudo rm -rf /var/www/html/*"
+    ]
+  }
 }
 
 #aws s3
@@ -123,6 +144,4 @@ resource "aws_cloudfront_distribution" "aws-cloudfront-s3" {
         cloudfront_default_certificate = true
     }
 }
-
-
 
